@@ -13,8 +13,9 @@ app.use(koaBody({ multipart: true }));
 app.use(router.routes());
 
 // PORT LISTENING
-app.listen(5000, 'localhost', () => {
-    console.log('App running on localhost port 5000!')
-});
-
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(5000, 'localhost', () => {
+        console.log('App running on localhost port 5000!')
+    });
+};
 export default app;
