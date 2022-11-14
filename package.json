@@ -2,11 +2,15 @@
   "name": "sports-manager-api",
   "version": "0.0.1",
   "description": "A Node.js based API using the KOA REST library to server data from a MongoDB instance to a front-end application using JSON.",
-  "main": "index.ts",
+  "main": "src/app.ts",
   "repository": "git@github.com:UMGC-SHELDZ/sports-manager-api.git",
   "author": "Scott Herold <sherold@mail.usf.edu>",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "start-dev": "nodemon nodemon.json src/app.ts",
+    "start": "ts-node src/app.ts"
+  },
   "dependencies": {
     "config": "^3.3.8",
     "koa": "^2.13.4",
