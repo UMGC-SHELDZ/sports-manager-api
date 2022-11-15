@@ -2,6 +2,7 @@
 import express from 'express'
 import morgan from 'morgan'
 import db from './player-db'
+import mongoose from "mongoose";
 const {urlencoded, json} = require('body-parser')
 
 // Setting everything up
@@ -46,3 +47,27 @@ app.post('/addPlayer', async (req, res) => {
     else
         res.error(204)
 })
+
+// Update a new player
+// The updatePlayer method needs to be finished, not sure how we want to provide arguments
+// Returns 201 if successful, 204 error if player not added
+app.patch('updatePlayer', async (req, res) => {
+    const updatedPlayer = await db.updatePlayer(req.body)
+    if (updatedPlayer)
+        res.status(302)
+    else
+        res.error(418)
+})
+
+// Method to connect to server, right now just set up to local host but later will be transferred to Atlas
+const connect = () => {
+    return mongoose.connect('mongodb://localhost:27017/player-db')// Eventually replace with Atlas URL
+}
+
+// Connect to server. Changes need to be made here before exporting to Atlas
+connect()
+    .then(async connection => {
+        console.log('Server connected')
+        app.listen(8000)
+    })
+    .catch(e => console.error(e))
