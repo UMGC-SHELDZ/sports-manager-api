@@ -1,12 +1,12 @@
 // Imports
-import express from 'express'
-import morgan from 'morgan'
+import koa from 'koa'
+//import morgan from 'morgan'
 import db from './player-db'
 import mongoose from "mongoose";
-const {urlencoded, json} = require('body-parser')
+const {urlencoded, json} = require('koa-body-parser')
 
 // Setting everything up
-const app = express()
+const app = koa()
 app.use(morgan('dev'))
 app.use(urlencoded({extended : true}))
 app.use(json())
