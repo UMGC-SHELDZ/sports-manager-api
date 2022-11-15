@@ -3,7 +3,7 @@ export default interface IPinoConfig {
     transport: {
         target: string;
         options: {
-            colorize: boolean
-        }
-    }
+            colorize: boolean;
+        };
+    };
 }

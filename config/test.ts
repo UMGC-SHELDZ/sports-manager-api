@@ -13,6 +13,6 @@ const testConfig: IConfig = {
             }
         }
     }
-}
+};
 
 export default testConfig;

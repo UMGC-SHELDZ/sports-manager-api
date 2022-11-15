@@ -3,9 +3,7 @@ import type { JestConfigWithTsJest } from 'ts-jest';
 
 // Jest TypeScript configuration
 const jestConfig: JestConfigWithTsJest = {
-    collectCoverageFrom: [
-        '**/*.{ts}'
-    ],
+    collectCoverageFrom: ['**/*.{ts}'],
     moduleFileExtensions: ['js', 'ts'],
     preset: 'ts-jest',
     testEnvironment: 'node',

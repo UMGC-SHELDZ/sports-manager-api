@@ -7,5 +7,5 @@ export default interface IConfig {
     port: number;
     host: string;
     mongo?: IMongoConnect;
-    pino?: IPinoConfig
+    pino?: IPinoConfig;
 }

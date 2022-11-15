@@ -5,6 +5,4 @@ const enum NodeEnvironment {
     TEST = 'test'
 }
 
-export {
-    NodeEnvironment
-}
+export { NodeEnvironment };
