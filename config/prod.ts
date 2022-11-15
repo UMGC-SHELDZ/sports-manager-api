@@ -4,6 +4,7 @@ import IConfig from '../src/common/interfaces/config/IConfig';
 const dbUser: string | undefined = process.env.DBUSER;
 const dbPasswd: string | undefined = process.env.DBPASSWD;
 
+// Config for production environment
 const prodConfig: IConfig = {
     appName: 'sports-manager-api',
     port: 4000,
