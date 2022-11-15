@@ -5,7 +5,7 @@ import pino, { Logger } from 'pino';
 import { NodeEnvironment } from '../src/common/constants/constants';
 
 /**
- * Creates a pino logger. If the environment is 'development', creates and instance of the pino
+ * Creates a pino logger. If the environment is 'development', creates an instance of the pino
  * logger that has the proper formatting options
  * @returns {Logger} An instance of pino, or formatted instance of pino if the Node Environment is 'develop'.
  */
