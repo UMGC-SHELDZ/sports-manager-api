@@ -5,8 +5,12 @@ import koaBody from 'koa-body';
 import config from 'config';
 import { Logger } from 'pino';
 
+// Database
+import dbConnect from './db/dbConnect';
+
 // Logger
 import pinoLogger from '../logger/logger';
+import { NodeEnvironment } from './common/constants/constants';
 
 /* SERVER SETUP */
 const port: number = config.get('port');
@@ -27,7 +31,10 @@ app.use(koaBody({ multipart: true }));
 app.use(router.routes());
 
 /* PORT LISTENING */
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== NodeEnvironment.TEST) {
+    // Connect to DB.
+    dbConnect();
+
     app.listen(port, host, () => {
         logger.info(`Server listening at http://${host}:${port}`);
     });
