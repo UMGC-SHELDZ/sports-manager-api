@@ -8,6 +8,9 @@ import { Logger } from 'pino';
 // Database
 import dbConnect from './db/dbConnect';
 
+// Routes
+import playerRouter from './routes/playerRouter';
+
 // Logger
 import pinoLogger from '../logger/logger';
 import { NodeEnvironment } from './common/constants/constants';
@@ -28,7 +31,8 @@ const app: koa = new koa();
 const router: KoaRouter = new Router();
 app.use(koaPinoLogger());
 app.use(koaBody({ multipart: true }));
-app.use(router.routes());
+app.use(router.routes())
+    .use(playerRouter.routes());
 
 /* PORT LISTENING */
 if (process.env.NODE_ENV !== NodeEnvironment.TEST) {
