@@ -6,6 +6,6 @@ export default interface IConfig {
     appName: string;
     port: number;
     host: string;
-    mongo: IMongoConnect;
-    pino?: IPinoConfig
+    mongo?: IMongoConnect;
+    pino?: IPinoConfig;
 }

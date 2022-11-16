@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 import koa from 'koa';
 import * as KoaRouter from 'koa-router';
 import koaBody from 'koa-body';
@@ -38,5 +38,5 @@ if (process.env.NODE_ENV !== NodeEnvironment.TEST) {
     app.listen(port, host, () => {
         logger.info(`Server listening at http://${host}:${port}`);
     });
-};
+}
 export default app;

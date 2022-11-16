@@ -12,6 +12,6 @@ const prodConfig: IConfig = {
     mongo: {
         uri: `mongodb://${dbUser}:${dbPasswd}@localhost:27017/sportmanager`
     }
-}
+};
 
 export default prodConfig;
