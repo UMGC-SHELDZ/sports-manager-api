@@ -53,7 +53,7 @@ class PlayerController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get player object and respond to client
-            ctx.body = await Player.findById(ctx.request.body.id);
+            ctx.body = await Player.findById(ctx.params.id);
             ctx.status = 200;
 
             // Log results

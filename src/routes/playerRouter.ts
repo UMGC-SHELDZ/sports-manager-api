@@ -16,7 +16,7 @@ playerRouter.post('add-player',
 
 // GET route to get a single player
 playerRouter.get('get-player',
-    baseRoute,
+    baseRoute + '/getPlayer/:id',
     playerController.getPlayer
 );
 
@@ -26,8 +26,8 @@ playerRouter.get('get-all-players',
     playerController.getAllPlayers
 );
 
-// PATCH route to update a player by ID
-playerRouter.patch('update-player',
+// POST route to update a player by ID
+playerRouter.post('update-player',
     baseRoute,
     playerController.updatePlayer
 );
