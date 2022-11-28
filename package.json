@@ -10,7 +10,7 @@
     "scripts": {
         "lint:prettier": "prettier --write --loglevel warn .",
         "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}",
-        "start-dev": "nodemon nodemon.json src/app.ts",
+        "start-dev": "NODE_ENV=dev nodemon nodemon.json src/app.ts",
         "start": "ts-node src/app.ts",
         "test": "NODE_ENV=test jest",
         "test-dev": "NODE_ENV=test npm-run-all lint:prettier & jest --watch-all --coverage"
