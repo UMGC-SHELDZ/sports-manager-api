@@ -42,6 +42,8 @@ if (process.env.NODE_ENV !== NodeEnvironment.TEST) {
     dbConnect();
 
     app.listen(port, host, () => {
+        // Remove this after "Phase 1"
+        logger.info('HELLO WORLD');
         logger.info(`Server listening at http://${host}:${port}`);
     });
 }

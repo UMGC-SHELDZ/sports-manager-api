@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import ITeam from '../common/interfaces/models/team/ITeam';
+import ITeam from '../common/interfaces/models/ITeam';
 
 // Schema for team
 const teamSchema: Schema = new Schema<ITeam>({
@@ -7,13 +7,12 @@ const teamSchema: Schema = new Schema<ITeam>({
         type: String,
         required: true
     },
-    managerName: {
+    sport: {
         type: String,
         required: true
     },
-    numPlayers: {
-        type: Number,
-        required: true
+    manager: {
+        type: Schema.Types.ObjectId, ref: 'Manager'
     }
 });
 

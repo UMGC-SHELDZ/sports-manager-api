@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import IPlayer from '../common/interfaces/models/player/IPlayer';
+import IPlayer from '../common/interfaces/models/IPlayer';
 
 // Schema for player
 const playerSchema: Schema = new Schema<IPlayer>({
