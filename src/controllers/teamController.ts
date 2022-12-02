@@ -1,5 +1,5 @@
 import {RouterContext} from 'koa-router';
-import {Document} from 'mongoose';
+import {Document, Types} from 'mongoose';
 import pinoLogger from '../../logger/logger';
 import Team from '../models/team.model';
 
@@ -53,7 +53,7 @@ class TeamController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get team object and respond to client
-            ctx.body = await Team.findById(ctx.params.id);
+            ctx.body = await Team.findById(new Types.ObjectId(ctx.params.id));
             ctx.status = 200;
 
             // Log results
@@ -111,7 +111,10 @@ class TeamController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get team object and respond to client
-            ctx.body = await Team.findByIdAndUpdate(ctx.request.body.id, ctx.request.body, {new : true})
+            ctx.body = await Team.findByIdAndUpdate(
+                new Types.ObjectId(ctx.params.id),
+                ctx.request.body,
+                {new : true})
 
             ctx.status = 204;
 
@@ -141,7 +144,7 @@ class TeamController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get team object and respond to client
-            ctx.body = await Team.findByIdAndDelete(ctx.request.body.id)
+            ctx.body = await Team.findByIdAndDelete(new Types.ObjectId(ctx.params.id))
 
                                         // Add code here to delete all players on this team?
 

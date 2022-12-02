@@ -1,5 +1,5 @@
 import {RouterContext} from 'koa-router';
-import {Document} from 'mongoose';
+import {Document, Types} from 'mongoose';
 import pinoLogger from '../../logger/logger';
 import Player from '../models/player.model';
 
@@ -53,7 +53,8 @@ class PlayerController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get player object and respond to client
-            ctx.body = await Player.findById(ctx.params.id);
+
+            ctx.body = await Player.findById(new Types.ObjectId(ctx.params.id));
             ctx.status = 200;
 
             // Log results
@@ -111,7 +112,10 @@ class PlayerController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get player object and respond to client
-            ctx.body = await Player.findByIdAndUpdate(ctx.request.body.id, ctx.request.body, {new : true})
+            ctx.body = await Player.findByIdAndUpdate(
+                new Types.ObjectId(ctx.params.id),
+                ctx.request.body,
+                {new : true})
 
             ctx.status = 204;
 
@@ -141,7 +145,7 @@ class PlayerController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get player object and respond to client
-            ctx.body = await Player.findByIdAndDelete(ctx.request.body.id)
+            ctx.body = await Player.findByIdAndDelete(new Types.ObjectId(ctx.params.id))
 
             ctx.status = 202;
 
