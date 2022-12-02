@@ -3,7 +3,7 @@ import { Document, Types } from 'mongoose';
 // Private interface for statistic object to be used with IPlayer
 interface IStatistic {
     statisticName: string;
-    stastisicValue: number;
+    statisticValue: number;
 }
 
 // interface for the Player Mongoose model

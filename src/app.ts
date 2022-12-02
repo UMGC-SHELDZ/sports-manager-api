@@ -10,6 +10,7 @@ import dbConnect from './db/dbConnect';
 
 // Routes
 import playerRouter from './routes/playerRouter';
+import teamRouter from './routes/teamRouter';
 
 // Logger
 import pinoLogger from '../logger/logger';
@@ -32,7 +33,8 @@ const router: KoaRouter = new Router();
 app.use(koaPinoLogger());
 app.use(koaBody({ multipart: true }));
 app.use(router.routes())
-    .use(playerRouter.routes());
+    .use(playerRouter.routes())
+    .use(teamRouter.routes());
 
 /* PORT LISTENING */
 if (process.env.NODE_ENV !== NodeEnvironment.TEST) {
