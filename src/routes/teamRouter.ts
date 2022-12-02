@@ -16,7 +16,7 @@ teamRouter.post('add-team',
 
 // GET route to get a single team
 teamRouter.get('get-team',
-    '/:id',
+    `${baseRoute}/:id`,
     teamController.getTeam
 );
 
