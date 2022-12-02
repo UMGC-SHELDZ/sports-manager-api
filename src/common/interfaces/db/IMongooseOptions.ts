@@ -12,5 +12,5 @@ export default interface IMongooseOptions {
     family?: number;
     authSource?: string;
     serverSelectionTimeout?: number;
-    heartbestFrequencyMS?: number;
+    heartBestFrequencyMS?: number;
 }

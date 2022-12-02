@@ -24,7 +24,7 @@ const playerSchema: Schema = new Schema<IPlayer>({
     statistics: [
         {
             statisticName: String,
-            stastisicValue: String
+            statisticValue: String
         }
     ]
 });
