@@ -15,6 +15,7 @@ import teamRouter from './routes/teamRouter';
 // Logger
 import pinoLogger from '../logger/logger';
 import { NodeEnvironment } from './common/constants/constants';
+import adminRouter from './routes/adminRouter';
 
 /* SERVER SETUP */
 const port: number = config.get('port');
@@ -27,13 +28,18 @@ const koaPinoLogger: Function = require('koa-pino-logger');
 // Need to require the koa-router
 const Router = require('koa-router');
 
+// Need to require CORS
+const cors = require('@koa/cors');
+
 // Launch Server
 const app: koa = new koa();
 const router: KoaRouter = new Router();
+app.use(cors());
 app.use(koaPinoLogger());
 app.use(koaBody({ multipart: true }));
 app.use(router.routes())
     .use(playerRouter.routes())
+    .use(adminRouter.routes())
     .use(teamRouter.routes());
 
 /* PORT LISTENING */
