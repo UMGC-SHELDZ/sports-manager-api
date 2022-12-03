@@ -8,7 +8,7 @@ const teamSchema: Schema = new Schema<ITeam>({
         required: true
     },
     sport: {
-        type: String,
+        type: Schema.Types.ObjectId, ref: 'Sport',
         required: true
     },
     manager: {
