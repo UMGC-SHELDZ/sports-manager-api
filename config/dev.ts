@@ -1,7 +1,7 @@
 import IConfig from '../src/common/interfaces/config/IConfig';
 
 // Config for non-production application
-const defaultConfig: IConfig = {
+const devConfig: IConfig = {
     appName: 'sports-manager-api',
     port: 4000,
     host: 'localhost',
@@ -18,4 +18,4 @@ const defaultConfig: IConfig = {
     }
 };
 
-export default defaultConfig;
+export default devConfig;

@@ -1,6 +1,6 @@
 // Enum for Node Environment options
 const enum NodeEnvironment {
-    DEV = 'development',
+    DEV = 'dev',
     PROD = 'prod',
     TEST = 'test'
 }
