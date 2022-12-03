@@ -10,12 +10,13 @@
     "scripts": {
         "lint:prettier": "prettier --write --loglevel warn .",
         "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}",
-        "start-dev": "nodemon nodemon.json src/app.ts",
-        "start": "ts-node src/app.ts",
+        "start-dev": "NODE_ENV=dev ts-node src/app.ts",
+        "start": "NODE_ENV=prod ts-node src/app.ts",
         "test": "NODE_ENV=test jest",
         "test-dev": "NODE_ENV=test npm-run-all lint:prettier & jest --watch-all --coverage"
     },
     "dependencies": {
+        "@koa/cors": "^4.0.0",
         "config": "^3.3.8",
         "koa": "^2.13.4",
         "koa-body": "^6.0.1",

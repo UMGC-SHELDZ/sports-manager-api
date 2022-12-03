@@ -16,7 +16,7 @@ playerRouter.post('add-player',
 
 // GET route to get a single player
 playerRouter.get('get-player',
-    '/:id',
+    `${baseRoute}/:id`,
     playerController.getPlayer
 );
 
