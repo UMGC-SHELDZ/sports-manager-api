@@ -11,11 +11,13 @@ import dbConnect from './db/dbConnect';
 // Routes
 import playerRouter from './routes/playerRouter';
 import teamRouter from './routes/teamRouter';
+import adminRouter from './routes/adminRouter';
+import sportRouter from './routes/sportRouter';
+import managerRouter from './routes/managerRouter';
 
 // Logger
 import pinoLogger from '../logger/logger';
 import { NodeEnvironment } from './common/constants/constants';
-import adminRouter from './routes/adminRouter';
 
 /* SERVER SETUP */
 const port: number = config.get('port');
@@ -40,6 +42,8 @@ app.use(koaBody({ multipart: true }));
 app.use(router.routes())
     .use(playerRouter.routes())
     .use(adminRouter.routes())
+    .use(sportRouter.routes())
+    .use(managerRouter.router())
     .use(teamRouter.routes());
 
 /* PORT LISTENING */
