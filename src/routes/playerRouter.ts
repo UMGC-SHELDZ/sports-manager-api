@@ -28,13 +28,13 @@ playerRouter.get('get-all-players',
 
 // POST route to update a player by ID
 playerRouter.post('update-player',
-    baseRoute,
+    `${baseRoute}/:id`,
     playerController.updatePlayer
 );
 
 // DELETE route to delete a player
 playerRouter.delete('delete-player',
-    baseRoute,
+    `${baseRoute}/:id`,
     playerController.deletePlayer
 );
 

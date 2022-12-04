@@ -28,13 +28,13 @@ sportRouter.get('get-all-sports',
 
 // POST route to update a sport by ID
 sportRouter.post('update-sport',
-    baseRoute,
+    `${baseRoute}/:id`,
     sportController.updateSport
 );
 
 // DELETE route to delete a sport
 sportRouter.delete('delete-sport',
-    baseRoute,
+    `${baseRoute}/:id`,
     sportController.deleteSport
 );
 

@@ -28,13 +28,13 @@ managerRouter.get('get-all-managers',
 
 // POST route to update a manager by ID
 managerRouter.post('update-manager',
-    baseRoute,
+    `${baseRoute}/:id`,
     managerController.updateManager
 );
 
 // DELETE route to delete a manager
 managerRouter.delete('delete-manager',
-    baseRoute,
+    `${baseRoute}/:id`,
     managerController.deleteManager
 );
 

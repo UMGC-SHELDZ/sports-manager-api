@@ -43,7 +43,7 @@ app.use(router.routes())
     .use(playerRouter.routes())
     .use(adminRouter.routes())
     .use(sportRouter.routes())
-    .use(managerRouter.router())
+    .use(managerRouter.routes())
     .use(teamRouter.routes());
 
 /* PORT LISTENING */
