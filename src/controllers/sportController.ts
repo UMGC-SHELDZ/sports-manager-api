@@ -112,7 +112,7 @@ class SportController {
         try {
             // Get sport object and respond to client
             ctx.body = await Sport.findByIdAndUpdate(
-                new Types.ObjectId(ctx.params.id),
+                new Types.ObjectId(new Types.ObjectId(ctx.params.id)),
                 ctx.request.body,
                 {new : true})
 

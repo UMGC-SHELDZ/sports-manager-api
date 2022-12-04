@@ -1,5 +1,5 @@
 import {RouterContext} from 'koa-router';
-import {Document} from 'mongoose';
+import {Document, Types} from 'mongoose';
 import pinoLogger from '../../logger/logger';
 import Manager from '../models/manager.model';
 
@@ -53,7 +53,7 @@ class ManagerController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get manager object and respond to client
-            ctx.body = await Manager.findById(ctx.params.id);
+            ctx.body = await Manager.findById(new Types.ObjectId(ctx.params.id));
             ctx.status = 200;
 
             // Log results
@@ -111,7 +111,10 @@ class ManagerController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get manager object and respond to client
-            ctx.body = await Manager.findByIdAndUpdate(ctx.request.body.id, ctx.request.body, {new : true})
+            ctx.body = await Manager.findByIdAndUpdate(
+                new Types.ObjectId(ctx.params.id),
+                ctx.request.body,
+                {new : true})
 
             ctx.status = 204;
 
@@ -141,7 +144,7 @@ class ManagerController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get manager object and respond to client
-            ctx.body = await Manager.findByIdAndDelete(ctx.request.body.id)
+            ctx.body = await Manager.findByIdAndDelete(new Types.ObjectId(ctx.params.id))
 
             ctx.status = 202;
 

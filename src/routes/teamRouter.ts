@@ -28,13 +28,13 @@ teamRouter.get('get-all-teams',
 
 // POST route to update a team by ID
 teamRouter.post('update-team',
-    baseRoute,
+    `${baseRoute}/:id`,
     teamController.updateTeam
 );
 
 // DELETE route to delete a team
 teamRouter.delete('delete-team',
-    baseRoute,
+    `${baseRoute}/:id`,
     teamController.deleteTeam
 );
 

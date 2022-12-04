@@ -112,7 +112,7 @@ class TeamController {
         try {
             // Get team object and respond to client
             ctx.body = await Team.findByIdAndUpdate(
-                new Types.ObjectId(ctx.params.id),
+                new Types.ObjectId(new Types.ObjectId(ctx.params.id)),
                 ctx.request.body,
                 {new : true})
 
