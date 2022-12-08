@@ -3,7 +3,6 @@ import {Document, Types} from 'mongoose';
 import * as _ from 'lodash';
 import pinoLogger from '../../logger/logger';
 import Manager from '../models/manager.model';
-
 import { compare } from 'bcrypt';
 import IManager from '../common/interfaces/models/IManager';
 

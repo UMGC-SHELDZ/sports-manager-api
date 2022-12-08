@@ -2,9 +2,6 @@ import {RouterContext} from 'koa-router';
 import {Document, Types} from 'mongoose';
 import pinoLogger from '../../logger/logger';
 import Team from '../models/team.model';
-
-// @ts-ignore
-import jwt from 'jsonwebtoken';
 import Sport from "../models/sport.model";
 import _ from "lodash";
 import Player from "../models/player.model";

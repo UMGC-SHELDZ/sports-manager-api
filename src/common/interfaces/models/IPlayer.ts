@@ -8,4 +8,5 @@ export default interface IPlayer extends Document {
     team?: Types.ObjectId;
     position?: string;
     playerNumber?: number;
+    salary?: number;
 }
