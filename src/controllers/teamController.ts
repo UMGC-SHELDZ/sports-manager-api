@@ -5,6 +5,9 @@ import Team from '../models/team.model';
 
 // @ts-ignore
 import jwt from 'jsonwebtoken';
+import Sport from "../models/sport.model";
+import _ from "lodash";
+import Player from "../models/player.model";
 
 // Logger
 const logger = pinoLogger();
@@ -55,12 +58,19 @@ class TeamController {
 
         // try/catch block allows us to capture errors to return to the client
         try {
-            // Get team object and respond to client
-            ctx.body = await Team.findById(new Types.ObjectId(ctx.params.id));
-            ctx.status = 200;
+            // Get Team object
+            const team = await Team.findById(new Types.ObjectId(ctx.params.id));
 
-            // Log results
-            logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            // Give appropriate response if team is found or not
+            if(!_.isNil(team)){
+                ctx.body = team;
+                ctx.status = 200;
+                // Log results
+                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            } else {
+                ctx.body = {message : "Team not found"};
+                ctx.status = 400;
+            }
 
             // Clear req/res queue
             await next();
@@ -114,15 +124,19 @@ class TeamController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get team object and respond to client
-            ctx.body = await Team.findByIdAndUpdate(
-                new Types.ObjectId(new Types.ObjectId(ctx.params.id)),
-                ctx.request.body,
-                {new : true})
+            const team = await Team.findByIdAndUpdate(new Types.ObjectId(ctx.params.id)
+                , ctx.request.body,
+                {new : true});
+            if(!_.isNil(team)){
+                ctx.body = team;
+                ctx.status = 204;
 
-            ctx.status = 204;
-
-            // Log results
-            logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+                // Log results
+                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            } else {
+                ctx.body = { message : "Team not found"};
+                ctx.status = 404;
+            }
 
             // Clear req/res queue
             await next();
@@ -147,14 +161,18 @@ class TeamController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get team object and respond to client
-            ctx.body = await Team.findByIdAndDelete(new Types.ObjectId(ctx.params.id))
+            const team = await Team.findByIdAndDelete(new Types.ObjectId(ctx.params.id));
 
-                                        // Add code here to delete all players on this team?
+            if(!_.isNil(team)){
+                ctx.body = team;
+                ctx.status = 204;
 
-            ctx.status = 202;
-
-            // Log results
-            logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+                // Log results
+                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            } else {
+                ctx.body = { message : "Team not found"};
+                ctx.status = 404;
+            }
 
             // Clear req/res queue
             await next();
