@@ -14,19 +14,12 @@ const playerSchema: Schema = new Schema<IPlayer>({
     team: {
         type: Schema.Types.ObjectId, ref: 'Team'
     },
-    positions: {
-        type: [String]
+    position: {
+        type: String
     },
     playerNumber: {
         type: Number
-    },
-    salary: Number,
-    statistics: [
-        {
-            statisticName: String,
-            statisticValue: String
-        }
-    ]
+    }
 });
 
 // Create and export Model

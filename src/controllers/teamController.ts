@@ -3,6 +3,9 @@ import {Document, Types} from 'mongoose';
 import pinoLogger from '../../logger/logger';
 import Team from '../models/team.model';
 
+// @ts-ignore
+import jwt from 'jsonwebtoken';
+
 // Logger
 const logger = pinoLogger();
 
