@@ -28,13 +28,12 @@ managerRouter.get('get-manager',
 // GET route to get all managers
 managerRouter.get('get-all-managers',
     baseRoute,
-    managerController.checkToken,
     managerController.getAllManagers
 );
 
 // POST route to update a manager by ID
-managerRouter.post('update-manager',
-    `${baseRoute}/:id`,
+managerRouter.put('update-manager',
+    `${baseRoute}`,
     managerController.updateManager
 );
 
