@@ -9,6 +9,11 @@ const baseRoute: string = '/manager';
 
 /* ROUTES */
 // POST route to create new Manager
+managerRouter.post('login',
+    `${baseRoute}/login`,
+    managerController.login
+);
+
 managerRouter.post('add-manager',
     baseRoute,
     managerController.addManager
@@ -27,8 +32,8 @@ managerRouter.get('get-all-managers',
 );
 
 // POST route to update a manager by ID
-managerRouter.post('update-manager',
-    `${baseRoute}/:id`,
+managerRouter.put('update-manager',
+    `${baseRoute}`,
     managerController.updateManager
 );
 
