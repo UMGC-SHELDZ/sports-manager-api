@@ -101,13 +101,26 @@ Returns an array of all managers
     
     'Accept: application/json' http://localhost:4000
     
-    
-If manager found    
-### Response
+      
+### Response (if found)
 
-    Status: 
+    Status: 200 OK
     Body:
+    {
+    "userName": "value",
+    "firstName": "value",
+    "lastName": "value",
+    "id": "id"
+    }
     
+### Response (if not found)
+
+    Status: 404 Not Found
+    Body:
+    {
+    "message": "Manager not found."
+    }
+
 ## 
 
 ### Request
