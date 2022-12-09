@@ -2,7 +2,6 @@ import {RouterContext} from 'koa-router';
 import {Document, Types} from 'mongoose';
 import pinoLogger from '../../logger/logger';
 import Sport from '../models/sport.model';
-import Player from "../models/player.model";
 import _ from "lodash";
 
 // Logger
@@ -120,18 +119,29 @@ class SportController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get sport object and respond to client
-            const sport = await Sport.findByIdAndUpdate(new Types.ObjectId(ctx.params.id)
-                , ctx.request.body,
-                {new : true});
-            if(!_.isNil(sport)){
-                ctx.body = sport;
-                ctx.status = 204;
+            const sport = await Sport.findByIdAndUpdate(
+                new Types.ObjectId(ctx.request.body.id),
+                ctx.request.body,
+                { new : true });
+
+            // If sport found, process update, else return 404
+            if (!_.isNil(sport)) {
+                const sportResp: { [key: string]: any } = {
+                    sportName: sport.sportName,
+                    id: sport._id.toString()
+                };
+
+                ctx.body = sportResp;
+                ctx.status = 202;
 
                 // Log results
                 logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
             } else {
-                ctx.body = { message : "Sport not found"};
+                ctx.body = { message: 'Sport not found.' };
                 ctx.status = 404;
+
+                // Log results
+                logger.error(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
             }
 
             // Clear req/res queue
@@ -157,18 +167,22 @@ class SportController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get sport object and respond to client
-            const sport = await Sport.findByIdAndDelete(new Types.ObjectId(ctx.params.id));
+            const sport: Document | null = await Sport.findByIdAndDelete(new Types.ObjectId(ctx.params.id));
 
-            if(!_.isNil(sport)){
-                ctx.body = sport;
-                ctx.status = 204;
+            // If sport is found, return success, else 404
+            if (!_.isNil(sport)) {
+                ctx.body = { message: 'Success' };
+                ctx.status = 202;
 
                 // Log results
                 logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
             } else {
-                ctx.body = { message : "Sport not found"};
+                ctx.body = { message: 'Sport not found.' };
                 ctx.status = 404;
-            }
+
+                // Log results
+                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            };
             // Clear req/res queue
             await next();
         } catch (e: any) {

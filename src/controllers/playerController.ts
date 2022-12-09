@@ -111,6 +111,42 @@ class PlayerController {
     }
 
     /**
+     * Gets all players that belong to a specific team
+     * @param {RouterContext} ctx The request context object containing data for the team
+     * @param {() => Promise<void>} next The next client request.
+     */
+    public async getPlayersByTeam(ctx: RouterContext, next: () => Promise<void>): Promise<void>{
+        // try/catch block allows us to capture errors to return to the client
+        try {
+            // Get Players array
+            const players = await Player.find({'team' : ctx.params.id});
+
+            // Give appropriate response if teams are found or not
+            if(!_.isEmpty(players)){
+                ctx.body = players;
+                ctx.status = 200;
+                // Log results
+                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            } else {
+                ctx.body = {message : "None Found"};
+                ctx.status = 400;
+            }
+
+            // Clear req/res queue
+            await next();
+        } catch (e: any) {
+            // Set proper status
+            ctx.status = 500;
+            ctx.body = e.message;
+
+            // Log results
+            logger.error(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            // Clear req/res queue
+            await next();
+        }
+    }
+
+    /**
      * Updates a player from the database by ID
      * @param {RouterContext} ctx The request context object containing data for the new player.
      * @param {() => Promise<void>} next The next client request.
@@ -119,18 +155,34 @@ class PlayerController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get player object and respond to client
-            const player = await Player.findByIdAndUpdate(new Types.ObjectId(ctx.params.id)
-                , ctx.request.body,
-                {new : true});
-            if(!_.isNil(player)){
-                ctx.body = player;
-                ctx.status = 204;
+            const player = await Player.findByIdAndUpdate(
+                new Types.ObjectId(ctx.request.body.id),
+                ctx.request.body,
+                { new : true });
+
+            // If player found, process update, else return 404
+            if (!_.isNil(player)) {
+                const playerResp: { [key: string]: any } = {
+                    firstName: player.firstName,
+                    lastName: player.lastName,
+                    team: player.team,
+                    position: player.position,
+                    playerNumber: player.playerNumber,
+                    salary: player.salary,
+                    id: player._id.toString()
+                };
+
+                ctx.body = playerResp;
+                ctx.status = 202;
 
                 // Log results
                 logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
             } else {
-                ctx.body = { message : "Player not found"};
+                ctx.body = { message: 'Player not found.' };
                 ctx.status = 404;
+
+                // Log results
+                logger.error(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
             }
 
             // Clear req/res queue
@@ -156,17 +208,21 @@ class PlayerController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get player object and respond to client
-            const player = await Player.findByIdAndDelete(new Types.ObjectId(ctx.params.id));
+            const player: Document | null = await Player.findByIdAndDelete(new Types.ObjectId(ctx.params.id));
 
-            if(!_.isNil(player)){
-                ctx.body = player;
-                ctx.status = 204;
+            // If player is found, return success, else 404
+            if (!_.isNil(player)) {
+                ctx.body = { message: 'Success' };
+                ctx.status = 202;
 
                 // Log results
                 logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
             } else {
-                ctx.body = { message : "Player not found"};
+                ctx.body = { message: 'Player not found.' };
                 ctx.status = 404;
+
+                // Log results
+                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
             }
 
             // Clear req/res queue

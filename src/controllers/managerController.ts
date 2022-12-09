@@ -55,7 +55,7 @@ class ManagerController {
                 logger.info('User Not Found');
                 ctx.body = { message: 'Invalid username or password!' };
                 ctx.status = 401
-            };
+            }
 
             // Clear req/res queue
             await next();
@@ -80,24 +80,38 @@ class ManagerController {
 
         // try/catch block allows us to capture errors to return to the client
         try {
-            // Create and update new entity.
-            const manager: IManager = new Manager(ctx.request.body);
-            await manager.save();
+            // Search if username already exists
+            const existingManager = await Manager.find({'userName' : ctx.request.body.userName});
 
-            // Resp Object
-            const userResp: { [key: string]: any } = {
-                userName: manager.userName,
-                firstName: manager.firstName,
-                lastName: manager.lastName,
-                id: manager._id.toString()
+            // If it does not, add new user
+            if(_.isEmpty(existingManager)){
+                // Create and update new entity.
+                const manager: IManager = await new Manager(ctx.request.body);
+                await manager.save();
+
+                // Resp Object
+                const userResp: { [key: string]: any } = {
+                    userName: manager.userName,
+                    firstName: manager.firstName,
+                    lastName: manager.lastName,
+                    id: manager._id.toString()
+                }
+
+                // Response to client
+                ctx.body = userResp;
+                ctx.status = 201;
+
+                // Log results
+                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            } else {
+                ctx.body = { message: 'Username already exists' };
+                ctx.status = 409;
+
+                // Log results
+                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
             }
 
-            // Response to client
-            ctx.body = userResp;
-            ctx.status = 201;
 
-            // Log results
-            logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
 
             // Clear req/res queue
             await next();
@@ -145,7 +159,7 @@ class ManagerController {
 
                 // Log results
                 logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
-            };
+            }
 
             // Clear req/res queue
             await next();
@@ -193,7 +207,7 @@ class ManagerController {
 
                 // Log results
                 logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
-            };
+            }
 
             // Clear req/res queue
             await next();
@@ -283,7 +297,7 @@ class ManagerController {
 
                 // Log results
                 logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
-            };
+            }
 
             // Clear req/res queue
             await next();
