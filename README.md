@@ -20,7 +20,7 @@ The REST API to the app is described below.
 
 `POST /manager`
 
-    curl -i -H 'Accept: application/json' http://localhost:4000
+    'Accept: application/json' http://localhost:4000
     
     {
     "userName" : "TestUser",
