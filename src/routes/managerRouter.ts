@@ -34,7 +34,7 @@ managerRouter.get('get-all-managers',
 
 // POST route to update a manager by ID
 managerRouter.put('update-manager',
-    `${baseRoute}`,
+    baseRoute,
     authenticateJWT,
     managerController.updateManager
 );

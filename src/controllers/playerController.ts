@@ -4,6 +4,7 @@ import pinoLogger from '../../logger/logger';
 import Player from '../models/player.model';
 import _ from "lodash";
 import Team from "../models/team.model";
+import Manager from "../models/manager.model";
 
 // Logger
 const logger = pinoLogger();
@@ -156,18 +157,34 @@ class PlayerController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get player object and respond to client
-            const player = await Player.findByIdAndUpdate(new Types.ObjectId(ctx.params.id)
-                , ctx.request.body,
-                {new : true});
-            if(!_.isNil(player)){
-                ctx.body = player;
-                ctx.status = 204;
+            const player = await Player.findByIdAndUpdate(
+                new Types.ObjectId(ctx.request.body.id),
+                ctx.request.body,
+                { new : true });
+
+            // If player found, process update, else return 404
+            if (!_.isNil(player)) {
+                const playerResp: { [key: string]: any } = {
+                    firstName: player.firstName,
+                    lastName: player.lastName,
+                    team: player.team,
+                    position: player.position,
+                    playerNumber: player.playerNumber,
+                    salary: player.salary,
+                    id: player._id.toString()
+                };
+
+                ctx.body = playerResp;
+                ctx.status = 202;
 
                 // Log results
                 logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
             } else {
-                ctx.body = { message : "Player not found"};
+                ctx.body = { message: 'Player not found.' };
                 ctx.status = 404;
+
+                // Log results
+                logger.error(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
             }
 
             // Clear req/res queue
@@ -193,17 +210,21 @@ class PlayerController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get player object and respond to client
-            const player = await Player.findByIdAndDelete(new Types.ObjectId(ctx.params.id));
+            const player: Document | null = await Player.findByIdAndDelete(new Types.ObjectId(ctx.params.id));
 
-            if(!_.isNil(player)){
-                ctx.body = player;
-                ctx.status = 204;
+            // If player is found, return success, else 404
+            if (!_.isNil(player)) {
+                ctx.body = { message: 'Success' };
+                ctx.status = 202;
 
                 // Log results
                 logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
             } else {
-                ctx.body = { message : "Player not found"};
+                ctx.body = { message: 'Player not found.' };
                 ctx.status = 404;
+
+                // Log results
+                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
             }
 
             // Clear req/res queue

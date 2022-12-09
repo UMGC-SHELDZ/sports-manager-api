@@ -30,7 +30,7 @@ sportRouter.get('get-all-sports',
 
 // POST route to update a sport by ID
 sportRouter.put('update-sport',
-    `${baseRoute}/:id`,
+    baseRoute,
     authenticateJWT,
     sportController.updateSport
 );

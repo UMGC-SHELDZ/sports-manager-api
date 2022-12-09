@@ -34,7 +34,7 @@ teamRouter.get('get-teams-by-sport',
 
 // POST route to update a team by ID
 teamRouter.put('update-team',
-    `${baseRoute}/:id`,
+    baseRoute,
     authenticateJWT,
     teamController.updateTeam
 );
