@@ -27,7 +27,7 @@ playerRouter.get('get-all-players',
 );
 
 // POST route to update a player by ID
-playerRouter.post('update-player',
+playerRouter.put('update-player',
     `${baseRoute}/:id`,
     playerController.updatePlayer
 );

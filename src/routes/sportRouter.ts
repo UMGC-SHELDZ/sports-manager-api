@@ -27,7 +27,7 @@ sportRouter.get('get-all-sports',
 );
 
 // POST route to update a sport by ID
-sportRouter.post('update-sport',
+sportRouter.put('update-sport',
     `${baseRoute}/:id`,
     sportController.updateSport
 );

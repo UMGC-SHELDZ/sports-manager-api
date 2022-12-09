@@ -1,7 +1,5 @@
 import { model, Schema } from 'mongoose';
 import IManager from '../common/interfaces/models/IManager';
-
-// @ts-ignore
 import bcrypt from 'bcrypt';
 const SALT_WORK_FACTOR = 10;
 
