@@ -16,6 +16,8 @@ The REST API to the app is described below.
 
 ## Create a new manager
 
+Adds a new manager to the database
+
 ### Request
 
 `POST /manager`
@@ -40,3 +42,34 @@ The REST API to the app is described below.
     "id": "63933d28459cefadd34fdc35"
     }
 
+## Update a manager
+
+Changes a field of a manager.
+
+Bearer token is required for this route.
+
+'id' should be the id of the manager you want to update.
+Include in the body the key you want to change, along with the new value.
+
+### Request
+
+`PUT /manager`
+    
+    'Accept: application/json' http://localhost:4000
+    {
+    "userName": "NewValue",
+    "firstName": "NewValue",
+    "lastName": "NewValue",
+    "id": "id"
+    }
+        
+### Response
+
+    Status: 201 Created
+    Body:
+    {
+    "userName": "NewValue",
+    "firstName": "NewValue",
+    "lastName": "NewValue",
+    "id": "id"
+    }
