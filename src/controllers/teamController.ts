@@ -52,7 +52,6 @@ class TeamController {
      * @param {() => Promise<void>} next The next client request.
      */
     public async getTeam(ctx: RouterContext, next: () => Promise<void>): Promise<void>{
-
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get Team object
@@ -97,6 +96,42 @@ class TeamController {
 
             // Log results
             logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+
+            // Clear req/res queue
+            await next();
+        } catch (e: any) {
+            // Set proper status
+            ctx.status = 500;
+            ctx.body = e.message;
+
+            // Log results
+            logger.error(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            // Clear req/res queue
+            await next();
+        }
+    }
+
+    /**
+     * Gets all teams that belong to a specific sport
+     * @param {RouterContext} ctx The request context object containing data for the sports
+     * @param {() => Promise<void>} next The next client request.
+     */
+    public async getTeamsBySport(ctx: RouterContext, next: () => Promise<void>): Promise<void>{
+        // try/catch block allows us to capture errors to return to the client
+        try {
+            // Get Teams array
+            const teams = await Team.find({'sport' : ctx.params.id});
+
+            // Give appropriate response if teams are found or not
+            if(!_.isEmpty(teams)){
+                ctx.body = teams;
+                ctx.status = 200;
+                // Log results
+                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            } else {
+                ctx.body = {message : "None Found"};
+                ctx.status = 400;
+            }
 
             // Clear req/res queue
             await next();

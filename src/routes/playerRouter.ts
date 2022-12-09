@@ -28,6 +28,11 @@ playerRouter.get('get-all-players',
     playerController.getAllPlayers
 );
 
+playerRouter.get('get-players-by-team',
+    `${baseRoute}/team/:id`,
+    playerController.getPlayersByTeam
+    )
+
 // POST route to update a player by ID
 playerRouter.put('update-player',
     `${baseRoute}/:id`,
