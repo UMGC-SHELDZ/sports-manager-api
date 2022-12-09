@@ -151,59 +151,388 @@ Bearer token is required for this route.
     {
     "message": "Manager not found."
     }
-    
-## 
+
+
+
+
+
+
+
+## Create a new player
+
+Adds a new player to the database
 
 ### Request
 
-`PUT /manager`
+`POST /player`
+
+    'Accept: application/json' http://localhost:4000
+    
+    
+
+### Response
+
+    Status: 201 Created
+    Body:
+    
+
+## Update a player
+
+Changes a field of a player.
+
+Bearer token is required for this route.
+
+'id' should be the id of the player you want to update.
+Include in the body the key you want to change, along with the new value.
+
+### Request
+
+`PUT /player`
     
     'Accept: application/json' http://localhost:4000
     
         
 ### Response
 
-    Status: 
+    Status: 202 Accepted
     Body:
     
-## 
+    
+## Get all players
+
+Returns an array of all players
 
 ### Request
 
-`PUT /manager`
+`GET /player`
     
     'Accept: application/json' http://localhost:4000
     
         
 ### Response
 
-    Status: 
+    Status: 200 OK
     Body:
-   
-## 
+    
+
+## Get a player by id
+
+'id' in the URL should be the id of the player you want to get.
 
 ### Request
 
-`PUT /manager`
+`GET /player/id`
+    
+    'Accept: application/json' http://localhost:4000
+    
+      
+### Response (if found)
+
+    Status: 200 OK
+    Body:
+    
+    
+### Response (if not found)
+
+    Status: 404 Not Found
+    Body:
+    
+
+## Delete a player
+
+Deletes a player by id
+
+Bearer token is required for this route.
+
+'id' in the URL should be the id of the player you want to delete.
+
+### Request
+
+`DELETE /player/id`
+    
+    'Accept: application/json' http://localhost:4000
+    
+        
+### Response (if found)
+
+    Status: 202 Accepted
+    Body:
+    
+    
+### Response (if not found)
+
+    Status: 404 Not Found
+    Body:
+    
+
+## Get players by team
+
+Gets all players by a specific team id
+
+'id' in the URL should be the id of the team you want to get players for.
+
+### Request
+
+`DELETE /player/team/id`
+    
+    'Accept: application/json' http://localhost:4000
+    
+        
+### Response (if found)
+
+    Status: 202 Accepted
+    Body:
+    
+    
+### Response (if not found)
+
+    Status: 404 Not Found
+    Body:
+    
+    
+    
+    
+    
+    
+    
+## Create a new team
+
+Adds a new team to the database
+
+### Request
+
+`POST /team`
+
+    'Accept: application/json' http://localhost:4000
+    
+
+### Response
+
+    Status: 201 Created
+    Body:
+    
+
+## Update a team
+
+Changes a field of a team.
+
+Bearer token is required for this route.
+
+'id' should be the id of the team you want to update.
+Include in the body the key you want to change, along with the new value.
+
+### Request
+
+`PUT /team`
     
     'Accept: application/json' http://localhost:4000
     
         
 ### Response
 
-    Status: 
+    Status: 202 Accepted
     Body:
-  
-## 
+    
+    
+## Get all teams
+
+Returns an array of all teams
 
 ### Request
 
-`PUT /manager`
+`GET /team`
     
     'Accept: application/json' http://localhost:4000
     
         
 ### Response
 
-    Status: 
+    Status: 200 OK
     Body:
+    
+
+## Get a team by id
+
+'id' in the URL should be the id of the team you want to get.
+
+### Request
+
+`GET /team/id`
+    
+    'Accept: application/json' http://localhost:4000
+    
+      
+### Response (if found)
+
+    Status: 200 OK
+    Body:
+    
+    
+### Response (if not found)
+
+    Status: 404 Not Found
+    Body:
+    
+
+## Delete a team
+
+Deletes a team by id
+
+Bearer token is required for this route.
+
+'id' in the URL should be the id of the team you want to delete.
+
+### Request
+
+`DELETE /team/id`
+    
+    'Accept: application/json' http://localhost:4000
+    
+        
+### Response (if found)
+
+    Status: 202 Accepted
+    Body:
+    
+    
+### Response (if not found)
+
+    Status: 404 Not Found
+    Body:
+    
+    
+## Get teams by sport
+
+Gets all teams by a specific sport id
+
+'id' in the URL should be the id of the sport you want to get teams for.
+
+### Request
+
+`DELETE /team/player/id`
+    
+    'Accept: application/json' http://localhost:4000
+    
+        
+### Response (if found)
+
+    Status: 202 Accepted
+    Body:
+    
+    
+### Response (if not found)
+
+    Status: 404 Not Found
+    Body:    
+    
+    
+    
+    
+    
+    
+## Create a new sport
+
+Adds a new sport to the database
+
+### Request
+
+`POST /sport`
+
+    'Accept: application/json' http://localhost:4000
+    
+
+### Response
+
+    Status: 201 Created
+    Body:
+    
+
+## Update a sport
+
+Changes a field of a sport.
+
+Bearer token is required for this route.
+
+'id' should be the id of the sport you want to update.
+Include in the body the key you want to change, along with the new value.
+
+### Request
+
+`PUT /sport`
+    
+    'Accept: application/json' http://localhost:4000
+    
+        
+### Response
+
+    Status: 202 Accepted
+    Body:
+    
+    
+## Get all sports
+
+Returns an array of all sports
+
+### Request
+
+`GET /sport`
+    
+    'Accept: application/json' http://localhost:4000
+    
+        
+### Response
+
+    Status: 200 OK
+    Body:
+    
+
+## Get a sport by id
+
+'id' in the URL should be the id of the sport you want to get.
+
+### Request
+
+`GET /sport/id`
+    
+    'Accept: application/json' http://localhost:4000
+    
+      
+### Response (if found)
+
+    Status: 200 OK
+    Body:
+    
+    
+### Response (if not found)
+
+    Status: 404 Not Found
+    Body:
+    
+
+## Delete a sport
+
+Deletes a sport by id
+
+Bearer token is required for this route.
+
+'id' in the URL should be the id of the sport you want to delete.
+
+### Request
+
+`DELETE /sport/id`
+    
+    'Accept: application/json' http://localhost:4000
+    
+        
+### Response (if found)
+
+    Status: 202 Accepted
+    Body:
+    
+    
+### Response (if not found)
+
+    Status: 404 Not Found
+    Body:
+    
+    
