@@ -97,7 +97,7 @@ Returns an array of all managers
 
 ### Request
 
-`PUT /manager/id`
+`GET /manager/id`
     
     'Accept: application/json' http://localhost:4000
     
@@ -121,19 +121,36 @@ Returns an array of all managers
     "message": "Manager not found."
     }
 
-## 
+## Delete a manager
+
+Deletes a manager by id
+
+Bearer token is required for this route.
+
+'id' in the URL should be the id of the manager you want to delete.
 
 ### Request
 
-`PUT /manager`
+`DELETE /manager/id`
     
     'Accept: application/json' http://localhost:4000
     
         
-### Response
+### Response (if found)
 
-    Status: 
+    Status: 202 Accepted
     Body:
+    {
+    "message": "Success"
+    }
+    
+### Response (if not found)
+
+    Status: 404 Not Found
+    Body:
+    {
+    "message": "Manager not found."
+    }
     
 ## 
 
