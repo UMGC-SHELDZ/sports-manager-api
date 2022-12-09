@@ -3,8 +3,6 @@ import {Document, Types} from 'mongoose';
 import pinoLogger from '../../logger/logger';
 import Player from '../models/player.model';
 import _ from "lodash";
-import Team from "../models/team.model";
-import Manager from "../models/manager.model";
 
 // Logger
 const logger = pinoLogger();

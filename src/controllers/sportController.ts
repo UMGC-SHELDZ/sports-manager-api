@@ -2,9 +2,7 @@ import {RouterContext} from 'koa-router';
 import {Document, Types} from 'mongoose';
 import pinoLogger from '../../logger/logger';
 import Sport from '../models/sport.model';
-import Player from "../models/player.model";
 import _ from "lodash";
-import Manager from "../models/manager.model";
 
 // Logger
 const logger = pinoLogger();
@@ -139,7 +137,7 @@ class SportController {
                 // Log results
                 logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
             } else {
-                ctx.body = { message: 'Player not found.' };
+                ctx.body = { message: 'Sport not found.' };
                 ctx.status = 404;
 
                 // Log results

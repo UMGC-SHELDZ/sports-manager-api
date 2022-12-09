@@ -1,6 +1,8 @@
 import KoaRouter from 'koa-router';
 import sportController from '../controllers/sportController';
 import authenticateJWT from '../middlware/authenticateToken';
+import teamController from "../controllers/teamController";
+import teamRouter from "./teamRouter";
 
 // Setup Router
 const sportRouter: KoaRouter = new KoaRouter();
@@ -27,6 +29,11 @@ sportRouter.get('get-all-sports',
     baseRoute,
     sportController.getAllSports
 );
+
+// GET teams by sport
+teamRouter.get('get-teams-by-sport',
+    `${baseRoute}/teams/:id`,
+    teamController.getTeamsBySport)
 
 // POST route to update a sport by ID
 sportRouter.put('update-sport',

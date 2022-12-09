@@ -7,7 +7,6 @@ import pinoLogger from '../../logger/logger';
 import Manager from '../models/manager.model';
 import { compare } from 'bcrypt';
 import IManager from '../common/interfaces/models/IManager';
-import Player from "../models/player.model";
 
 // Logger
 const logger = pinoLogger();
