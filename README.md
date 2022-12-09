@@ -94,7 +94,7 @@ Adds a new manager to the database
     "lastName" : "One"
     }
 
-### Response
+### Response (if username does not already exist)
 
     Status: 201 Created
     Body:
@@ -104,6 +104,16 @@ Adds a new manager to the database
     "lastName": "One",
     "id": "63933d28459cefadd34fdc35"
     }
+    
+### Response (if username already exist)
+
+    Status: 409 Conflict
+    Body:
+    {
+    "message": "Username already exists"
+    }
+    
+    
 
 ## Update a manager
 
