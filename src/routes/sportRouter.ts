@@ -1,5 +1,6 @@
 import KoaRouter from 'koa-router';
 import sportController from '../controllers/sportController';
+import authenticateJWT from '../middlware/authenticateToken';
 
 // Setup Router
 const sportRouter: KoaRouter = new KoaRouter();
@@ -11,6 +12,7 @@ const baseRoute: string = '/sport';
 // POST route to create new Sport
 sportRouter.post('add-sport',
     baseRoute,
+    authenticateJWT,
     sportController.addSport
 );
 
@@ -29,12 +31,14 @@ sportRouter.get('get-all-sports',
 // POST route to update a sport by ID
 sportRouter.put('update-sport',
     `${baseRoute}/:id`,
+    authenticateJWT,
     sportController.updateSport
 );
 
 // DELETE route to delete a sport
 sportRouter.delete('delete-sport',
     `${baseRoute}/:id`,
+    authenticateJWT,
     sportController.deleteSport
 );
 

@@ -1,5 +1,6 @@
 import KoaRouter from 'koa-router';
 import playerController from '../controllers/playerController';
+import authenticateJWT from '../middlware/authenticateToken';
 
 // Setup Router
 const playerRouter: KoaRouter = new KoaRouter();
@@ -11,6 +12,7 @@ const baseRoute: string = '/player';
 // POST route to create new Player
 playerRouter.post('add-player',
     baseRoute,
+    authenticateJWT,
     playerController.addPlayer
 );
 
@@ -29,12 +31,14 @@ playerRouter.get('get-all-players',
 // POST route to update a player by ID
 playerRouter.put('update-player',
     `${baseRoute}/:id`,
+    authenticateJWT,
     playerController.updatePlayer
 );
 
 // DELETE route to delete a player
 playerRouter.delete('delete-player',
     `${baseRoute}/:id`,
+    authenticateJWT,
     playerController.deletePlayer
 );
 
