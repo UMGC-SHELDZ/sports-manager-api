@@ -55,8 +55,8 @@ Enter a username and Manager's username and password, used to get a token to acc
 
     'Accept: application/json' http://localhost:4000
     {
-    "userName" : "value",
-    "password" : "value"
+    "userName" : string,
+    "password" : string
     }
 
 ### Response (if successful login)
@@ -64,8 +64,8 @@ Enter a username and Manager's username and password, used to get a token to acc
     Status: 200 Created
     Body:
     {
-    "userId": "value",
-    "token": "token"
+    "userId": ObjectId,
+    "token": String
     }
 
 ### Response (if unsuccessful login)
@@ -88,10 +88,10 @@ Adds a new manager to the database
     'Accept: application/json' http://localhost:4000
     
     {
-    "userName" : "TestUser",
-    "password" : "password",
-    "firstName" : "Manager",
-    "lastName" : "One"
+    "userName" : string,
+    "password" : string,
+    "firstName" : string,
+    "lastName" : string
     }
 
 ### Response (if username does not already exist)
@@ -99,10 +99,10 @@ Adds a new manager to the database
     Status: 201 Created
     Body:
     {
-    "userName": "TestUser",
-    "firstName": "Manager",
-    "lastName": "One",
-    "id": "63933d28459cefadd34fdc35"
+    "userName": string,
+    "firstName": string,
+    "lastName": string,
+    "id": ObjectId
     }
     
 ### Response (if username already exist)
@@ -130,10 +130,10 @@ Include in the body the key you want to change, along with the new value.
     
     'Accept: application/json' http://localhost:4000
     {
-    "userName": "NewValue",
-    "firstName": "NewValue",
-    "lastName": "NewValue",
-    "id": "id"
+    "userName": string,
+    "firstName": string,
+    "lastName": string,
+    "id": ObjectId
     }
         
 ### Response (if manager found)
@@ -141,10 +141,10 @@ Include in the body the key you want to change, along with the new value.
     Status: 202 Accepted
     Body:
     {
-    "userName": "NewValue",
-    "firstName": "NewValue",
-    "lastName": "NewValue",
-    "id": "id"
+    "userName": string,
+    "firstName": string,
+    "lastName": string,
+    "id": ObjectId
     }
     
 ### Response (if manager not found)
@@ -187,10 +187,10 @@ Returns an array of all managers
     Status: 200 OK
     Body:
     {
-    "userName": "value",
-    "firstName": "value",
-    "lastName": "value",
-    "id": "id"
+    "userName": string,
+    "firstName": string,
+    "lastName": string,
+    "id": ObjectId
     }
     
 ### Response (if not found)
@@ -250,11 +250,11 @@ Bearer token is required for this route.
 
     'Accept: application/json' http://localhost:4000
     {
-    "firstName" : "value",
-    "lastName" : "value",
-    "team" : "value (team id)",
-    "position" : "value",
-    "playerNumber" : value
+    "firstName" : string,
+    "lastName" : string,
+    "team" : ObjectId,
+    "position" : string,
+    "playerNumber" : number
     }
     
 
@@ -263,12 +263,12 @@ Bearer token is required for this route.
     Status: 201 Created
     Body:
     {
-    "firstName": "value",
-    "lastName": "value",
-    "team": "value",
-    "position": "value",
-    "playerNumber": value,
-    "_id": "value",
+    "firstName": string,
+    "lastName": string,
+    "team": string,
+    "position": string,
+    "playerNumber": number,
+    "_id": ObjectId,
     "__v": 0
 }
 
@@ -287,12 +287,12 @@ Include in the body the key you want to change, along with the new value.
     
     'Accept: application/json' http://localhost:4000
     {
-    "firstName": "newValue",
-    "lastName": "newValue",
-    "team": "newValue",
-    "position": "newValue",
-    "playerNumber": newValue,
-    "id": "id"
+    "firstName": string,
+    "lastName": string,
+    "team": ObjectId,
+    "position": string,
+    "playerNumber": number,
+    "id": ObjectId
     }
         
 ### Response (if player found)
@@ -300,12 +300,12 @@ Include in the body the key you want to change, along with the new value.
     Status: 202 Accepted
     Body:
     {
-    "firstName": "newValue",
-    "lastName": "newValue",
-    "team": "newValue",
-    "position": "newValue",
-    "playerNumber": newValue,
-    "id": "id"
+    "firstName": string,
+    "lastName": string,
+    "team": ObjectId,
+    "position": string,
+    "playerNumber": number,
+    "id": ObjectId
     }
     
 ### Response (if player not found)
@@ -351,12 +351,12 @@ Returns an array of all players
     Status: 200 OK
     Body:
     {
-    "_id": "value",
-    "firstName": "value",
-    "lastName": "value",
-    "team": "value",
-    "position": "value",
-    "playerNumber": value,
+    "_id": ObjectId,
+    "firstName": string,
+    "lastName": string,
+    "team": ObjectId,
+    "position": string,
+    "playerNumber": number,
     "__v": 0
 }
     
@@ -448,9 +448,9 @@ Bearer token is required for this route.
 
     'Accept: application/json' http://localhost:4000
     {
-    "teamName" : "value",
-    "sport" : "value (sport id)",
-    "manager" : "value (manager id)"
+    "teamName" : string,
+    "sport" : ObjectId,
+    "manager" : ObjectId
     }
 
 ### Response
@@ -458,10 +458,10 @@ Bearer token is required for this route.
     Status: 201 Created
     Body:
     {
-    "teamName": "value",
-    "sport": "value",
-    "manager": "value",
-    "_id": "value",
+    "teamName": string,
+    "sport": ObjectId,
+    "manager": ObjectId,
+    "_id": ObjectId,
     "__v": 0
     }
 
@@ -486,10 +486,10 @@ Include in the body the key you want to change, along with the new value.
     Status: 202 Accepted
     Body:
     {
-    "teamName": "newValue",
-    "sport": "newValue (sport id)",
-    "manager": "newValue (manager id)",
-    "id": "id"
+    "teamName": string,
+    "sport": ObjectId,
+    "manager": ObjectId,
+    "id": ObjectId
     }
     
 ### Response (if not found)
@@ -534,10 +534,10 @@ Returns an array of all teams
     Status: 200 OK
     Body:
     {
-    "_id": "value",
-    "teamName": "value",
-    "sport": "value",
-    "manager": "value",
+    "_id": ObjectId,
+    "teamName": string,
+    "sport": ObjectId,
+    "manager": ObjectId,
     "__v": 0
     }
     
@@ -617,7 +617,7 @@ Bearer token is required for this route.
 
     'Accept: application/json' http://localhost:4000
     {
-    "sportName" : "value"
+    "sportName" : string
     }
 
 ### Response
@@ -625,8 +625,8 @@ Bearer token is required for this route.
     Status: 201 Created
     Body:
     {
-    "sportName": "value",
-    "_id": "value",
+    "sportName": string,
+    "_id": ObjectId,
     "__v": 0
     }
     
@@ -646,8 +646,8 @@ Include in the body the key you want to change, along with the new value.
     
     'Accept: application/json' http://localhost:4000
     {
-    "sportName": "newValue",
-    "id": "id"
+    "sportName": string,
+    "id": ObjectId
     }
         
 ### Response (if found)
@@ -655,8 +655,8 @@ Include in the body the key you want to change, along with the new value.
     Status: 202 Accepted
     Body:
     {
-    "sportName": "THE CATS",
-    "id": "63935ad3f7874b4c9cf40c25"
+    "sportName": string,
+    "id": ObjectId
     }
     
 ### Response (if not found)
@@ -700,8 +700,8 @@ Returns an array of all sports
     Status: 200 OK
     Body:
     {
-    "_id": "value",
-    "sportName": "value",
+    "_id": ObjectId,
+    "sportName": string,
     "__v": 0
     }
     
