@@ -76,27 +76,33 @@ Include in the body the key you want to change, along with the new value.
     
 ## Get all managers
 
+Returns an array of all managers
+
 ### Request
 
-`PUT /manager`
+`GET /manager`
     
     'Accept: application/json' http://localhost:4000
     
         
 ### Response
 
-    Status: 
+    Status: 200 OK
     Body:
+    [managers]
 
-## 
+## Get a manager by id
+
+'id' in the URL should be the id of the manager you want to get.
 
 ### Request
 
-`PUT /manager`
+`PUT /manager/id`
     
     'Accept: application/json' http://localhost:4000
     
-        
+    
+If manager found    
 ### Response
 
     Status: 
