@@ -27,7 +27,7 @@ teamRouter.get('get-all-teams',
 );
 
 // POST route to update a team by ID
-teamRouter.post('update-team',
+teamRouter.put('update-team',
     `${baseRoute}/:id`,
     teamController.updateTeam
 );

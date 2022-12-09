@@ -2,6 +2,8 @@ import {RouterContext} from 'koa-router';
 import {Document, Types} from 'mongoose';
 import pinoLogger from '../../logger/logger';
 import Sport from '../models/sport.model';
+import Player from "../models/player.model";
+import _ from "lodash";
 
 // Logger
 const logger = pinoLogger();
@@ -52,12 +54,19 @@ class SportController {
 
         // try/catch block allows us to capture errors to return to the client
         try {
-            // Get sport object and respond to client
-            ctx.body = await Sport.findById(new Types.ObjectId(ctx.params.id));
-            ctx.status = 200;
+            // Get Sport object
+            const sport = await Sport.findById(new Types.ObjectId(ctx.params.id));
 
-            // Log results
-            logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            // Give appropriate response if sport is found or not
+            if(!_.isNil(sport)){
+                ctx.body = sport;
+                ctx.status = 200;
+                // Log results
+                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            } else {
+                ctx.body = {message : "Sport not found"};
+                ctx.status = 400;
+            }
 
             // Clear req/res queue
             await next();
@@ -111,15 +120,19 @@ class SportController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get sport object and respond to client
-            ctx.body = await Sport.findByIdAndUpdate(
-                new Types.ObjectId(new Types.ObjectId(ctx.params.id)),
-                ctx.request.body,
-                {new : true})
+            const sport = await Sport.findByIdAndUpdate(new Types.ObjectId(ctx.params.id)
+                , ctx.request.body,
+                {new : true});
+            if(!_.isNil(sport)){
+                ctx.body = sport;
+                ctx.status = 204;
 
-            ctx.status = 204;
-
-            // Log results
-            logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+                // Log results
+                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            } else {
+                ctx.body = { message : "Sport not found"};
+                ctx.status = 404;
+            }
 
             // Clear req/res queue
             await next();
@@ -144,12 +157,18 @@ class SportController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get sport object and respond to client
-            ctx.body = await Sport.findByIdAndDelete(new Types.ObjectId(ctx.params.id))
-            ctx.status = 202;
+            const sport = await Sport.findByIdAndDelete(new Types.ObjectId(ctx.params.id));
 
-            // Log results
-            logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            if(!_.isNil(sport)){
+                ctx.body = sport;
+                ctx.status = 204;
 
+                // Log results
+                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            } else {
+                ctx.body = { message : "Sport not found"};
+                ctx.status = 404;
+            }
             // Clear req/res queue
             await next();
         } catch (e: any) {

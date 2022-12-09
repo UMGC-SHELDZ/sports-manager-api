@@ -19,6 +19,9 @@ const playerSchema: Schema = new Schema<IPlayer>({
     },
     playerNumber: {
         type: Number
+    },
+    salary: {
+        type: Number
     }
 });
 
