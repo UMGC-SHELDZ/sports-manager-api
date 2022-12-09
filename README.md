@@ -65,7 +65,7 @@ Include in the body the key you want to change, along with the new value.
         
 ### Response
 
-    Status: 201 Created
+    Status: 202 Accepted
     Body:
     {
     "userName": "NewValue",
@@ -73,3 +73,101 @@ Include in the body the key you want to change, along with the new value.
     "lastName": "NewValue",
     "id": "id"
     }
+    
+## Get all managers
+
+### Request
+
+`PUT /manager`
+    
+    'Accept: application/json' http://localhost:4000
+    
+        
+### Response
+
+    Status: 
+    Body:
+
+## 
+
+### Request
+
+`PUT /manager`
+    
+    'Accept: application/json' http://localhost:4000
+    
+        
+### Response
+
+    Status: 
+    Body:
+    
+## 
+
+### Request
+
+`PUT /manager`
+    
+    'Accept: application/json' http://localhost:4000
+    
+        
+### Response
+
+    Status: 
+    Body:
+    
+## 
+
+### Request
+
+`PUT /manager`
+    
+    'Accept: application/json' http://localhost:4000
+    
+        
+### Response
+
+    Status: 
+    Body:
+    
+## 
+
+### Request
+
+`PUT /manager`
+    
+    'Accept: application/json' http://localhost:4000
+    
+        
+### Response
+
+    Status: 
+    Body:
+   
+## 
+
+### Request
+
+`PUT /manager`
+    
+    'Accept: application/json' http://localhost:4000
+    
+        
+### Response
+
+    Status: 
+    Body:
+  
+## 
+
+### Request
+
+`PUT /manager`
+    
+    'Accept: application/json' http://localhost:4000
+    
+        
+### Response
+
+    Status: 
+    Body:
