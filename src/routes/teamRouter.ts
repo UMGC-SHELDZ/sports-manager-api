@@ -1,5 +1,6 @@
 import KoaRouter from 'koa-router';
 import teamController from '../controllers/teamController';
+import authenticateJWT from '../middlware/authenticateToken';
 
 // Setup Router
 const teamRouter: KoaRouter = new KoaRouter();
@@ -11,6 +12,7 @@ const baseRoute: string = '/team';
 // POST route to create new Team
 teamRouter.post('add-team',
     baseRoute,
+    authenticateJWT,
     teamController.addTeam
 );
 
@@ -29,12 +31,14 @@ teamRouter.get('get-all-teams',
 // POST route to update a team by ID
 teamRouter.put('update-team',
     `${baseRoute}/:id`,
+    authenticateJWT,
     teamController.updateTeam
 );
 
 // DELETE route to delete a team
 teamRouter.delete('delete-team',
     `${baseRoute}/:id`,
+    authenticateJWT,
     teamController.deleteTeam
 );
 

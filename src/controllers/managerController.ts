@@ -1,5 +1,7 @@
 import {RouterContext} from 'koa-router';
 import {Document, Types} from 'mongoose';
+import jwt from 'jsonwebtoken';
+
 import * as _ from 'lodash';
 import pinoLogger from '../../logger/logger';
 import Manager from '../models/manager.model';
@@ -18,7 +20,7 @@ class ManagerController {
      * @param {RouterContext} ctx The request context object containing username and password.
      * @param {() => Promise<void>} next The next client request.
      */
-    public async login(ctx: RouterContext, next: () => Promise<void>): Promise<void>{
+    public async login(ctx: RouterContext, next: () => Promise<void>): Promise<void> {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get the Manager object for the username
@@ -35,8 +37,13 @@ class ManagerController {
                 // Perform correct actions for match and not matching results
                 if (matched){
                     const userResp: { [key: string]: any } = {
-                        id: user._id.toString()
-                    }
+                        userId: user._id.toString(),
+                        token: jwt.sign({ 
+                            userId: user._id.toString(),
+                            exp: Math.floor(Date.now() / 1000) + (60 * 60)
+                        },
+                            !_.isNil(process.env.JWT_SECRET) ? process.env.JWT_SECRET : 'jwt-secret'
+                    )};
                     ctx.body = userResp;
                     ctx.status = 200
 

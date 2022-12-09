@@ -1,5 +1,6 @@
 import KoaRouter from 'koa-router';
 import managerController from '../controllers/managerController';
+import authenticateJWT from '../middlware/authenticateToken';
 
 // Setup Router
 const managerRouter: KoaRouter = new KoaRouter();
@@ -34,12 +35,14 @@ managerRouter.get('get-all-managers',
 // POST route to update a manager by ID
 managerRouter.put('update-manager',
     `${baseRoute}`,
+    authenticateJWT,
     managerController.updateManager
 );
 
 // DELETE route to delete a manager
 managerRouter.delete('delete-manager',
     `${baseRoute}/:id`,
+    authenticateJWT,
     managerController.deleteManager
 );
 
