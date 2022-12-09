@@ -12,7 +12,7 @@ This is an API for managing the players of different sports teams. It can suppor
 
 # REST API
 
-The REST API to the example app is described below.
+The REST API to the app is described below.
 
 ## Create a new manager
 
