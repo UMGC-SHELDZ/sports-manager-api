@@ -8,7 +8,7 @@ import playerRouter from "./playerRouter";
 const teamRouter: KoaRouter = new KoaRouter();
 
 // Base router for Team REST endpoints
-const baseRoute: string = '/team';
+const baseRoute: string = '/teams';
 
 /* ROUTES */
 // POST route to create new Team
@@ -32,9 +32,9 @@ teamRouter.get('get-all-teams',
 
 // GET players by team
 playerRouter.get('get-players-by-team',
-    `${baseRoute}/players/:id`,
+    `${baseRoute}/:id/players`,
     playerController.getPlayersByTeam
-)
+);
 
 // POST route to update a team by ID
 teamRouter.put('update-team',

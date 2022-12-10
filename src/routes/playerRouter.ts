@@ -6,7 +6,7 @@ import authenticateJWT from '../middlware/authenticateToken';
 const playerRouter: KoaRouter = new KoaRouter();
 
 // Base router for Player REST endpoints
-const baseRoute: string = '/player';
+const baseRoute: string = '/players';
 
 /* ROUTES */
 // POST route to create new Player
