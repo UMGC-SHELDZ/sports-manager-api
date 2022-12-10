@@ -54,7 +54,7 @@ class SportController {
         // try/catch block allows us to capture errors to return to the client
         try {
             // Get Sport object
-            const sport = await Sport.findById(new Types.ObjectId(ctx.params.id));
+            const sport = await Sport.findById(new Types.ObjectId(ctx.params._id));
 
             // Give appropriate response if sport is found or not
             if(!_.isNil(sport)){
@@ -120,7 +120,7 @@ class SportController {
         try {
             // Get sport object and respond to client
             const sport = await Sport.findByIdAndUpdate(
-                new Types.ObjectId(ctx.request.body.id),
+                new Types.ObjectId(ctx.request.body._id),
                 ctx.request.body,
                 { new : true });
 
@@ -128,7 +128,7 @@ class SportController {
             if (!_.isNil(sport)) {
                 const sportResp: { [key: string]: any } = {
                     sportName: sport.sportName,
-                    id: sport._id.toString()
+                    _id: sport._id.toString()
                 };
 
                 ctx.body = sportResp;

@@ -6,7 +6,7 @@ import authenticateJWT from '../middlware/authenticateToken';
 const managerRouter: KoaRouter = new KoaRouter();
 
 // Base router for Manager REST endpoints
-const baseRoute: string = '/manager';
+const baseRoute: string = '/managers';
 
 /* ROUTES */
 // POST route to create new Manager

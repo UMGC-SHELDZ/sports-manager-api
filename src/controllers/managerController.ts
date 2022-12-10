@@ -36,8 +36,16 @@ class ManagerController {
 
                 // Perform correct actions for match and not matching results
                 if (matched){
+                    // Create manager return object
+                    const authUser: { [key: string]: string } ={
+                        id: user._id.toString(),
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        userName: user.userName
+                    }
+
                     const userResp: { [key: string]: any } = {
-                        userId: user._id.toString(),
+                        user: authUser,
                         token: jwt.sign({ 
                             userId: user._id.toString(),
                             exp: Math.floor(Date.now() / 1000) + (60 * 60)
