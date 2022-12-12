@@ -10,7 +10,6 @@ const secret = process.env.JWT_SECRET || 'jwt-secret';
  * @param next The next request.
  */
 const authenticateToken = async (ctx: RouterContext, next: () => Promise<void>): Promise<void> => {
-    console.log(ctx.headers.authorization);
     if (!ctx.headers.authorization) ctx.throw(403, 'Access forbidden.');
 
     const token = ctx.headers.authorization.split(' ')[1];

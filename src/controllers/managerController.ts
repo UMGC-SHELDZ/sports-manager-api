@@ -38,7 +38,7 @@ class ManagerController {
                 if (matched){
                     // Create manager return object
                     const authUser: { [key: string]: string } ={
-                        id: user._id.toString(),
+                        _id: user._id.toString(),
                         firstName: user.firstName,
                         lastName: user.lastName,
                         userName: user.userName
@@ -153,7 +153,7 @@ class ManagerController {
                     userName: manager.userName,
                     firstName: manager.firstName,
                     lastName: manager.lastName,
-                    id: manager._id.toString()
+                    _id: manager._id.toString()
                 }
     
                 ctx.body = managerResp;
@@ -200,7 +200,7 @@ class ManagerController {
                         userName: manager.userName,
                         firstName: manager.firstName,
                         lastName: manager.lastName,
-                        id: manager._id.toString()
+                        _id: manager._id.toString()
                     };
                 });
     
@@ -251,7 +251,7 @@ class ManagerController {
                     userName: manager.userName,
                     firstName: manager.firstName,
                     lastName: manager.lastName,
-                    id: manager._id.toString()
+                    _id: manager._id.toString()
                 };
     
                 ctx.body = managerResp;
