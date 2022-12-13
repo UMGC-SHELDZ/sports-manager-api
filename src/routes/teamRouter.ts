@@ -30,12 +30,6 @@ teamRouter.get('get-all-teams',
     teamController.getAllTeams
 );
 
-// GET players by team
-playerRouter.get('get-players-by-team',
-    `${baseRoute}/:id/players`,
-    playerController.getPlayersByTeam
-);
-
 // POST route to update a team by ID
 teamRouter.put('update-team',
     baseRoute,

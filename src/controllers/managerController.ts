@@ -38,7 +38,7 @@ class ManagerController {
                 if (matched){
                     // Create manager return object
                     const authUser: { [key: string]: string } ={
-                        id: user._id.toString(),
+                        _id: user._id.toString(),
                         firstName: user.firstName,
                         lastName: user.lastName,
                         userName: user.userName
@@ -136,54 +136,6 @@ class ManagerController {
     }
 
     /**
-     * Gets a manager from the database by ID
-     * @param {RouterContext} ctx The request context object containing data for the new manager.
-     * @param {() => Promise<void>} next The next client request.
-     */
-    public async getManager(ctx: RouterContext, next: () => Promise<void>): Promise<void>{
-
-        // try/catch block allows us to capture errors to return to the client
-        try {
-            // Get manager object and respond to client
-            const manager = await Manager.findById(new Types.ObjectId(ctx.params.id));
-
-            // if Manager found, return results
-            if (!_.isNil(manager)) {
-                const managerResp: { [key: string]: any } = {
-                    userName: manager.userName,
-                    firstName: manager.firstName,
-                    lastName: manager.lastName,
-                    id: manager._id.toString()
-                }
-    
-                ctx.body = managerResp;
-                ctx.status = 200;
-    
-                // Log results
-                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
-            } else {
-                ctx.body = { message: 'Manager not found.' };
-                ctx.status = 404;
-
-                // Log results
-                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
-            }
-
-            // Clear req/res queue
-            await next();
-        } catch (e: any) {
-            // Set proper status
-            ctx.status = 500;
-            ctx.body = e.message;
-
-            // Log results
-            logger.error(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
-            // Clear req/res queue
-            await next();
-        }
-    }
-
-    /**
      * Gets all managers from the database
      * @param {RouterContext} ctx The request context object containing data for the new manager.
      * @param {() => Promise<void>} next The next client request.
@@ -200,7 +152,7 @@ class ManagerController {
                         userName: manager.userName,
                         firstName: manager.firstName,
                         lastName: manager.lastName,
-                        id: manager._id.toString()
+                        _id: manager._id.toString()
                     };
                 });
     
@@ -231,95 +183,6 @@ class ManagerController {
         }
     }
 
-    /**
-     * Updates a manager from the database by ID
-     * @param {RouterContext} ctx The request context object containing data for the new manager.
-     * @param {() => Promise<void>} next The next client request.
-     */
-    public async updateManager(ctx: RouterContext, next: () => Promise<void>): Promise<void>{
-        // try/catch block allows us to capture errors to return to the client
-        try {
-            // Get manager object and respond to client
-            const manager = await Manager.findByIdAndUpdate(
-                new Types.ObjectId(ctx.request.body.id),
-                ctx.request.body,
-                { new : true });
-
-            // If manager found, process update, else return 404
-            if (!_.isNil(manager)) {
-                const managerResp: { [key: string]: any } = {
-                    userName: manager.userName,
-                    firstName: manager.firstName,
-                    lastName: manager.lastName,
-                    id: manager._id.toString()
-                };
-    
-                ctx.body = managerResp;
-                ctx.status = 202;
-    
-                // Log results
-                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
-            } else {
-                ctx.body = { message: 'Manager not found.' };
-                ctx.status = 404;
-
-                // Log results
-                logger.error(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
-            }
-
-            // Clear req/res queue
-            await next();
-        } catch (e: any) {
-            // Set proper status
-            ctx.status = 500;
-            ctx.body = e.message;
-
-            // Log results
-            logger.error(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
-            // Clear req/res queue
-            await next();
-        }
-    }
-
-    /**
-     * Deletes a manager from the database by ID
-     * @param {RouterContext} ctx The request context object containing data for the new manager.
-     * @param {() => Promise<void>} next The next client request.
-     */
-    public async deleteManager(ctx: RouterContext, next: () => Promise<void>): Promise<void>{
-        // try/catch block allows us to capture errors to return to the client
-        try {
-            // Get manager object and respond to client
-            const manager: Document | null = await Manager.findByIdAndDelete(new Types.ObjectId(ctx.params.id));
-
-            // If manager is found, return success, else 404
-            if (!_.isNil(manager)) {
-                ctx.body = { message: 'Success' };
-                ctx.status = 202;
-
-                // Log results
-                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
-            } else {
-                ctx.body = { message: 'Manager not found.' };
-                ctx.status = 404;
-
-                // Log results
-                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
-            }
-
-            // Clear req/res queue
-            await next();
-        } catch (e: any) {
-            // Set proper status
-            ctx.status = 500;
-            ctx.body = e.message;
-
-            // Log results
-            logger.error(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
-            // Clear req/res queue
-            await next();
-        }
-    }
 }
 
 export default new ManagerController();

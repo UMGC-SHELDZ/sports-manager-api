@@ -30,12 +30,6 @@ sportRouter.get('get-all-sports',
     sportController.getAllSports
 );
 
-// GET teams by sport
-teamRouter.get('get-teams-by-sport',
-    `${baseRoute}/teams/:id`,
-    teamController.getTeamsBySport
-);
-
 // POST route to update a sport by ID
 sportRouter.put('update-sport',
     baseRoute,

@@ -124,6 +124,42 @@ class TeamController {
     }
 
     /**
+     * Gets all teams that belong to a specific sport
+     * @param {RouterContext} ctx The request context object containing data for the sports
+     * @param {() => Promise<void>} next The next client request.
+     */
+    public async getTeamsBySport(ctx: RouterContext, next: () => Promise<void>): Promise<void>{
+        // try/catch block allows us to capture errors to return to the client
+        try {
+            // Get Teams array
+            const teams = await Team.find({'sport' : new Types.ObjectId(ctx.params.id)});
+
+            // Give appropriate response if teams are found or not
+            if(!_.isEmpty(teams)){
+                ctx.body = teams;
+                ctx.status = 200;
+                // Log results
+                logger.info(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            } else {
+                ctx.body = {message : "None Found"};
+                ctx.status = 400;
+            }
+
+            // Clear req/res queue
+            await next();
+        } catch (e: any) {
+            // Set proper status
+            ctx.status = 500;
+            ctx.body = e.message;
+
+            // Log results
+            logger.error(`Body: ${ctx.body}\nStatus: ${ctx.status}`);
+            // Clear req/res queue
+            await next();
+        }
+    }
+
+    /**
      * Updates a team from the database by ID
      * @param {RouterContext} ctx The request context object containing data for the new team.
      * @param {() => Promise<void>} next The next client request.
@@ -141,11 +177,17 @@ class TeamController {
             // If request has a sport, or manager, map it
             if (!_.isNil(ctx.request.body.sport) || !_.isEmpty(ctx.request.body.sport)) {
                 updateTeam.sport = new Types.ObjectId(ctx.request.body.sport);
+            } else {
+                updateTeam.sport = null;
             };
     
             if (!_.isNil(ctx.request.body.manager) || !_.isEmpty(ctx.request.body.manager)) {
                 updateTeam.manager = new Types.ObjectId(ctx.request.body.manager);
+            } else {
+                updateTeam.manager = null;
             };
+
+            console.log(updateTeam);
 
             // Get team object and respond to client
             const team = await Team.findByIdAndUpdate(
@@ -155,16 +197,6 @@ class TeamController {
 
             // If team found, process update, else return 404
             if (!_.isNil(team)) {
-
-                // unset relationships if not received from the client
-                if (_.isNil(ctx.request.body.sport)) {
-                    team.sport = undefined
-                };
-
-                if (_.isNil(ctx.request.body.manager)) {
-                    team.manager = undefined
-                };
-
                 const teamResp: { [key: string]: any } = {
                     teamName: team.teamName,
                     sport: team.sport,
