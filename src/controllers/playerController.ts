@@ -154,14 +154,56 @@ class PlayerController {
     public async updatePlayer(ctx: RouterContext, next: () => Promise<void>): Promise<void>{
         // try/catch block allows us to capture errors to return to the client
         try {
+            let updatePlayer: { [key: string]: any } = {
+                _id: new Types.ObjectId(ctx.request.body._id),
+                firstName: ctx.request.body.firstName,
+                lastName: ctx.request.body.lastName
+            };
+
+            // If requests have optional data, map it
+            if (!_.isNil(ctx.request.body.team) || !_.isEmpty(ctx.request.body.team)) {
+                updatePlayer.team = new Types.ObjectId(ctx.request.body.team);
+            };
+
+            if (!_.isNil(ctx.request.body.position) || !_.isEmpty(ctx.request.body.position)) {
+                updatePlayer.position = ctx.request.body.position;
+            };
+
+            if (!_.isNil(ctx.request.body.playerNumber) || !_.isEmpty(ctx.request.body.playerNumber)) {
+                updatePlayer.playerNumber = ctx.request.body.playerNumber;
+            };
+
+            if (!_.isNil(ctx.request.body.salary) || !_.isEmpty(ctx.request.body.salary)) {
+                updatePlayer.salary = ctx.request.body.salary;
+            };
+
+
             // Get player object and respond to client
             const player = await Player.findByIdAndUpdate(
-                new Types.ObjectId(ctx.request.body.id),
-                ctx.request.body,
-                { new : true });
+                new Types.ObjectId(ctx.request.body._id),
+                updatePlayer,
+                { new : true }
+            );
 
             // If player found, process update, else return 404
             if (!_.isNil(player)) {
+                // Unset data if not passed in they body
+                if (_.isNil(ctx.request.body.team)) {
+                    player.team = undefined
+                };
+
+                if (_.isNil(ctx.request.body.position)) {
+                    player.position = undefined
+                };
+
+                if (_.isNil(ctx.request.body.playerNumber)) {
+                    player.playerNumber = undefined
+                };
+
+                if (_.isNil(ctx.request.body.salary)) {
+                    player.salary = undefined
+                };
+
                 const playerResp: { [key: string]: any } = {
                     firstName: player.firstName,
                     lastName: player.lastName,
@@ -169,7 +211,7 @@ class PlayerController {
                     position: player.position,
                     playerNumber: player.playerNumber,
                     salary: player.salary,
-                    id: player._id.toString()
+                    _id: player._id.toString()
                 };
 
                 ctx.body = playerResp;
