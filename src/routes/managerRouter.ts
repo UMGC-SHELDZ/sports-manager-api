@@ -20,30 +20,10 @@ managerRouter.post('add-manager',
     managerController.addManager
 );
 
-// GET route to get a single manager
-managerRouter.get('get-manager',
-    `${baseRoute}/:id`,
-    managerController.getManager
-);
-
 // GET route to get all managers
 managerRouter.get('get-all-managers',
     baseRoute,
     managerController.getAllManagers
-);
-
-// POST route to update a manager by ID
-managerRouter.put('update-manager',
-    baseRoute,
-    authenticateJWT,
-    managerController.updateManager
-);
-
-// DELETE route to delete a manager
-managerRouter.delete('delete-manager',
-    `${baseRoute}/:id`,
-    authenticateJWT,
-    managerController.deleteManager
 );
 
 export default managerRouter;
